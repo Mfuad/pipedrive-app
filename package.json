@@ -11,9 +11,11 @@
   "license": "ISC",
   "description": "Pipedrive test app",
   "dependencies": {
-    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "method-override": "^3.0.0",
-    "pipedrive": "^23.1.0"
+    "jsonwebtoken": "^9.0.2",
+    "pipedrive": "^23.1.0",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
   }
 }

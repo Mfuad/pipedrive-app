@@ -42,10 +42,10 @@ select:focus {
 }
 .container {
   max-width: 1200px;
+  padding: 10px;
   margin: auto;
 }
 .wrapper {
-  padding: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
@@ -83,4 +83,11 @@ select:focus {
 
 .control > input[type="submit"] {
   background-color: gold;
+}
+
+.final {
+  display: none;
+}
+.link:hover {
+  text-decoration: underline;
 }

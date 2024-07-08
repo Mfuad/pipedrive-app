@@ -1,25 +1,46 @@
 import pipedrive from "pipedrive";
+import { dbGetClient } from "../db/oauth.js";
 
-export const createDeal = async (req, res) => {
-  console.log("Sending request...");
-  const api = new pipedrive.DealsApi(req.apiClient);
-  console.log(await req.apiClient.authentications.api_key);
-  const data = {
-    title: "Deal of the century",
-    value: 10000,
-    currency: "USD",
-    user_id: null,
-    person_id: null,
-    org_id: 1,
-    stage_id: 1,
-    status: "open",
-    expected_close_date: "2022-02-11",
-    probability: 60,
-    lost_reason: null,
-    visible_to: 1,
-    add_time: "2021-02-11",
-  };
-  console.log("2");
-  const response = await api.addDeal(data);
-  console.log("Deal was added successfully!", response);
+export const createDeal = async (req, res, next) => {
+  try {
+    const params = new URLSearchParams(req.headers.referer);
+
+    const data = req.body;
+
+    const [userId, companyId] = [params.get("userId"), params.get("companyId")];
+
+    const tokens = await dbGetClient(userId, companyId);
+
+    let { oauth2 } = req.apiClient.authentications;
+
+    oauth2.accessToken = tokens.dataValues.access_token;
+    oauth2.refreshToken = tokens.dataValues.refresh_token;
+
+    const dealsApi = new pipedrive.DealsApi(req.apiClient);
+    const fieldsApi = new pipedrive.DealFieldsApi(req.apiClient);
+
+    const dealFields = await fieldsApi.getDealFields();
+
+    const dealKeys = {};
+    for (let id in dealFields.data) {
+      dealKeys[dealFields.data[id].name] = dealFields.data[id].key;
+    }
+
+    const finalData = {
+      title: "Job#",
+    };
+    for (let name in data) {
+      if (!dealKeys[name]) continue;
+      finalData[dealKeys[name]] = data[name];
+    }
+
+    const newDeal = await dealsApi.addDeal(finalData);
+    await dealsApi.updateDeal(newDeal.data.id, {
+      title: `Job#${newDeal.data.id}`,
+    });
+
+    res.send(newDeal.data.id.toString());
+  } catch (error) {
+    next(error);
+  }
 };

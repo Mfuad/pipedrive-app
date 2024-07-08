@@ -1,7 +1,5 @@
 import express from "express";
 import path from "path";
-import bodyParser from "body-parser";
-import methodOverride from "method-override";
 import { fileURLToPath } from "url";
 import errorHandler from "./middlewares/errorHandler.js";
 import apiClient from "./middlewares/apiClient.js";
@@ -13,13 +11,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = 3000;
 
+
 app.use(express.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
-app.use(bodyParser.json())
-app.use(methodOverride())
-app.use(errorHandler);
 app.use(apiClient);
 app.use(logger);
 
@@ -31,6 +24,8 @@ app.get("/", (req, res) => {
 
 app.use("/callback", callbackRouter);
 app.use("/deals", dealRouter);
+
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

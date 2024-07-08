@@ -8,83 +8,75 @@
     <title>Document</title>
   </head>
   <body>
-    <form action="">
-      <div class="container">
+    <div class="container">
+      <form method="post" class="form">
         <div class="wrapper">
           <div class="box">
             <h2>Client details</h2>
             <div class="flex">
-              <input type="text" placeholder="First Name" />
-              <input type="text" placeholder="Last Name" />
+              <input name="First name" type="text" placeholder="First name" />
+              <input name="Last name" type="text" placeholder="Last name" />
             </div>
-            <input type="tel" placeholder="Phone Number" />
-            <input type="email" placeholder="Email" />
+            <input name="Phone number" type="tel" placeholder="Phone number" />
+            <input name="Email" type="email" placeholder="Email" />
           </div>
           <div class="box">
             <h2>Job type</h2>
-            <select name="" id="">
+            <select name="Job type" id="">
               <option value="" disabled selected>Job type</option>
-              <option value="">job type 1</option>
-              <option value="">job type 2</option>
-              <option value="">job type 3</option>
+              <option value="job type 1">job type 1</option>
+              <option value="job type 2">job type 2</option>
+              <option value="job type 3">job type 3</option>
             </select>
-            <select name="" id="">
+            <select name="Job source" id="">
               <option value="" disabled selected>Job source</option>
-              <option value="">job source 1</option>
-              <option value="">job source 2</option>
-              <option value="">job source 3</option>
+              <option value="job source 1">job source 1</option>
+              <option value="job source 2">job source 2</option>
+              <option value="job source 3">job source 3</option>
             </select>
             <textarea
-              name=""
-              id=""
+              name="Job description"
               rows="5"
               placeholder="Job description (optional)"
             ></textarea>
           </div>
           <div class="box">
             <h2>Service Location</h2>
-            <input type="text" placeholder="Address" />
-            <input type="text" placeholder="City" />
-            <input type="text" placeholder="State" />
+            <input name="Address" type="text" placeholder="Address" required />
+            <input name="City" type="text" placeholder="City" />
+            <input name="State" type="text" placeholder="State" />
             <div class="flex">
               <input type="text" placeholder="Zip code" />
-              <select name="" id="">
+              <select name="Area" id="">
                 <option value="" disabled selected>Area</option>
-                <option value="">Area 1</option>
-                <option value="">Area 2</option>
-                <option value="">Area 3</option>
+                <option value="Area 1">Area 1</option>
+                <option value="Area 2">Area 2</option>
+                <option value="Area 2">Area 3</option>
               </select>
             </div>
           </div>
           <div class="box">
             <h2>Client details</h2>
-            <input type="date" />
+            <input name="Job date" type="date" />
             <div class="flex">
-              <input type="time" placeholder="Start" />
-              <input type="time" placeholder="End" />
+              <input name="Job start time" type="time" />
+              <input name="Job end time" type="time" />
             </div>
-            <select name="" id="">
+            <select name="Technician" id="">
               <option value="" disabled selected>Select technician</option>
-              <option value="">Technician 1</option>
-              <option value="">Technician 2</option>
-              <option value="">Technician 3</option>
+              <option value="Technician 1">Technician 1</option>
+              <option value="Technician 2">Technician 2</option>
+              <option value="Technician 3">Technician 3</option>
             </select>
           </div>
         </div>
         <div class="control">
-          <input type="submit" value="Create Job" />
-          <button>Cancel</button>
+          <input class="create" type="submit" value="Create Job" />
+          <button class="close">Cancel</button>
         </div>
-      </div>
-    </form>
-    <button id="test">test</button>
+      </form>
+      <h2 class="final">Job is Created! <span class="link">View Deal</span></h2>
+    </div>
     <script src="./static/scripts.js"></script>
-    <script>
-      (async function () {
-        sdk.initialize({
-          size: { width: 1200, height: 700 },
-        });
-      })();
-    </script>
   </body>
 </html>
